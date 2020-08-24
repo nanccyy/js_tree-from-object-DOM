@@ -22,15 +22,18 @@ const food = {
 const tree = document.querySelector('#tree');
 
 function createTree(element, data) {
-  for (const key in data) {
-    element.insertAdjacentHTML('beforeend', `
-      <ul>
-        <li class="${key}">${key}</li>
-      </ul>
-    `);
+  const ul = document.createElement('ul');
 
-    if (key) {
-      createTree(document.querySelector(`.${key}`), data[key]);
+  for (const key in data) {
+    const li = document.createElement('li');
+
+    li.innerText = key;
+    ul.append(li);
+
+    element.append(ul);
+
+    if (Object.values(data).length > 0) {
+      createTree(li, data[key]);
     } else {
       return;
     }
